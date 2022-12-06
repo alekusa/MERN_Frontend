@@ -1,29 +1,31 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { usePosts } from "../context/postContext";
+import { usePosts } from "../context/postContext.js";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useEffect, useState } from "react";
 
 export function PostForm() {
   const { createPost, getPost, updatePost } = usePosts();
   const navigate = useNavigate();
-  const params = useParams();
-
   const [post, setPost] = useState({
     title: "",
     description: "",
     image: null,
   });
+  const params = useParams();
 
   useEffect(() => {
     (async () => {
       if (params.id) {
         const post = await getPost(params.id);
-        setPost(post);
+        setPost({
+          title: post.title,
+          description: post.description,
+        });
       }
     })();
-  }, [params.id]);
+  }, [params.id, getPost]);
 
   return (
     <div className="flex items-center justify-center ">
