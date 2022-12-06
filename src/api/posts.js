@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const getPostsRequests = async () =>
-  await axios.get("https://mernbackend-production-c23a.up.railway.app/posts");
+export const getPostsRequests = async () => await axios.get("/posts");
 
 export const getPostRequest = async (id) => await axios.get("/posts/" + id);
 
