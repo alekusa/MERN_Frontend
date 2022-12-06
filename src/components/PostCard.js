@@ -57,8 +57,10 @@ export function PostCard({ post }) {
           </button>
         </div>
         <p>{post.description}</p>
-        {post.image && <img src={post.image.url} className="h-96 w-full " />}
       </div>
+      {post.image && (
+        <img src={post.image.url} alt={post.title} className="h-96 w-full" />
+      )}
     </div>
   );
 }
