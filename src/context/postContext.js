@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import {
-  getPostsRequests,
   createPostRequest,
   deletePostRequest,
   getPostRequest,
@@ -11,50 +10,60 @@ const postContext = createContext();
 
 export const usePosts = () => {
   const context = useContext(postContext);
+  if (!context) throw new Error("Post Provider is missing");
   return context;
 };
+
 export const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
 
-  const getPosts = async () => {
-    const res = await getPostsRequests();
-    setPosts(res.data);
-  };
-
-  const createPost = async (post) => {
-    const res = await createPostRequest(post);
-    setPosts([...posts, res.data]);
-  };
+  useEffect(() => {
+    (async () => {
+      const res = await getPostRequest();
+      setPosts(res.data);
+    })();
+  }, []);
 
   const deletePost = async (id) => {
     const res = await deletePostRequest(id);
-    console.log(res);
+    if (res.status === 204) {
+      setPosts(posts.filter((post) => post._id !== id));
+    }
+  };
 
-    // if (res.status === 204) {
-    //   setPosts(posts.filter((post) => post._id !== id));
-    // }
+  const createPost = async (post) => {
+    try {
+      const res = await createPostRequest(post);
+      setPosts([...posts, res.data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getPost = async (id) => {
-    const res = await getPostRequest(id);
-    return res.data;
+    try {
+      const res = await getPostRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const updatePost = async (id, post) => {
-    const res = await updatePostRequest(id, post);
-    setPosts(posts.map((post) => (post._id === id ? res.data : post)));
+    try {
+      const res = await updatePostRequest(id, post);
+      setPosts(posts.map((post) => (post._id === id ? res.data : post)));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  useEffect(() => {
-    getPosts();
-  }, []);
   return (
     <postContext.Provider
       value={{
         posts,
-        getPosts,
-        createPost,
         deletePost,
+        createPost,
         getPost,
         updatePost,
       }}

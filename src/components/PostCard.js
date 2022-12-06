@@ -22,12 +22,12 @@ export function PostCard({ post }) {
             >
               Borrar
             </button>
-            {/* <button
+            <button
               className="bg-slate-400 hover:bg-slate-500 px-3 py-2 text-white rounded-sm mx-2"
               onClick={() => toast.dismiss(t.id)}
             >
               Cancelar
-            </button> */}
+            </button>
           </div>
         </div>
       ),
