@@ -15,7 +15,7 @@ export function PostCard({ post }) {
           <div>
             <button
               className="bg-slate-500 hover:bg-red-400 px-3 py-2 text-sm text-white rounded-sm mx-2"
-              onClick={() => {
+              onClick={(e) => {
                 deletePost(id);
                 toast.dismiss(t.id);
               }}
@@ -33,7 +33,7 @@ export function PostCard({ post }) {
       ),
       {
         style: {
-          background: "202020 ",
+          background: "#202020 ",
         },
       }
     );
@@ -41,7 +41,7 @@ export function PostCard({ post }) {
   return (
     <div
       className="bg-zinc-800 text-white rounded-sm shadow-md shadow-black hover:bg-zinc-700 hover:cursor-pointer"
-      onClick={() => navigate(`/posts/${post._id}`)}
+      onClick={() => navigate(`/${post._id}`)}
     >
       <div className="px-4 py-7">
         <div className="flex justify-between">
