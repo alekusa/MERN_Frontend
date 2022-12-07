@@ -1,22 +1,32 @@
 import axios from "axios";
 
-export const getPostsRequest = async () => await axios.get("/posts");
+export const getPostsRequest = async () =>
+  await axios.get("https://mernbackend-production-c23a.up.railway.app/posts");
 
-export const getPostRequest = async (id) => await axios.get("/posts/" + id);
+export const getPostRequest = async (id) =>
+  await axios.get(
+    "https://mernbackend-production-c23a.up.railway.app/posts/" + id
+  );
 
 export const deletePostRequest = async (id) =>
-  await axios.delete("/api/posts/" + id);
+  await axios.delete(
+    "https://mernbackend-production-c23a.up.railway.app/posts/" + id
+  );
 
 export const createPostRequest = async (post) => {
   const form = new FormData();
   for (let key in post) {
     form.append(key, post[key]);
   }
-  return await axios.post("/posts", form, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  return await axios.post(
+    "https://mernbackend-production-c23a.up.railway.app/posts",
+    form,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 };
 
 export const updatePostRequest = async (id, newPostFields) => {
@@ -24,9 +34,13 @@ export const updatePostRequest = async (id, newPostFields) => {
   for (let key in newPostFields) {
     form.append(key, newPostFields[key]);
   }
-  return axios.put("/posts/" + id, form, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  return axios.put(
+    "https://mernbackend-production-c23a.up.railway.app/posts/" + id,
+    form,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 };
