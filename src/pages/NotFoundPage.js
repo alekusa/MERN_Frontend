@@ -1,3 +1,3 @@
-export function NotFundPage() {
-  return <div>Not Fund</div>;
+export function NotFoundPage() {
+  return <div>NotFoundPage</div>;
 }
